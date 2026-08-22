@@ -1,0 +1,6 @@
+# Allow all user agents to crawl all content
+User-agent: *
+Disallow:
+
+# Sitemap location
+Sitemap: https://stylewise-ai.web.app/sitemap.xml

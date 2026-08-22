@@ -1,0 +1,438 @@
+import type { Order, UserProfile, Coupon, PromotionBanner, ProductReview, CustomerInquiry } from '../types';
+
+export const INITIAL_ORDERS: Order[] = [
+  {
+    id: 'ord-1001',
+    orderNumber: 'SW20260821-001',
+    userId: 'user-kim',
+    userEmail: 'kim.fashion@gmail.com',
+    userName: '김민준',
+    userPhone: '010-3847-1928',
+    shippingAddress: '서울특별시 강남구 테헤란로 152 강남파이낸스센터 12층',
+    shippingMemo: '부재 시 경비실에 맡겨주세요.',
+    items: [
+      {
+        productId: 'prod-1',
+        productName: '프리미엄 캐시미어 울 코트',
+        price: 289000,
+        quantity: 1,
+        imageUrl: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=600&q=80',
+        size: 'L (100)',
+        color: '오트밀 베이지'
+      },
+      {
+        productId: 'prod-4',
+        productName: '슬림핏 코튼 드레스 셔츠',
+        price: 68000,
+        quantity: 2,
+        imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80',
+        size: 'M (95)',
+        color: '스카이블루'
+      }
+    ],
+    totalAmount: 425000,
+    discountAmount: 20000,
+    finalAmount: 405000,
+    paymentMethod: 'credit_card',
+    status: 'shipping',
+    trackingNumber: '682910394851',
+    courierCompany: 'CJ대한통운',
+    createdAt: '2026-08-21 14:32',
+    updatedAt: '2026-08-21 17:10',
+  },
+  {
+    id: 'ord-1002',
+    orderNumber: 'SW20260821-002',
+    userId: 'user-lee',
+    userEmail: 'lee.soyeon@naver.com',
+    userName: '이소연',
+    userPhone: '010-8291-7744',
+    shippingAddress: '경기도 성남시 분당구 판교역로 235 에이치스퀘어 N동 801호',
+    shippingMemo: '배송 전 연락 부탁드립니다.',
+    items: [
+      {
+        productId: 'prod-5',
+        productName: '실크 블렌드 플리츠 원피스',
+        price: 189000,
+        quantity: 1,
+        imageUrl: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80',
+        size: 'S (55)',
+        color: '샴페인 골드'
+      }
+    ],
+    totalAmount: 189000,
+    discountAmount: 10000,
+    finalAmount: 179000,
+    paymentMethod: 'kakao_pay',
+    status: 'paid',
+    createdAt: '2026-08-21 18:05',
+    updatedAt: '2026-08-21 18:06',
+  },
+  {
+    id: 'ord-1003',
+    orderNumber: 'SW20260820-008',
+    userId: 'user-park',
+    userEmail: 'park.style@daum.net',
+    userName: '박지훈',
+    userPhone: '010-4491-0029',
+    shippingAddress: '부산광역시 해운대구 센텀중앙로 78 센텀그린타워',
+    shippingMemo: '문 앞에 놓아주세요.',
+    items: [
+      {
+        productId: 'prod-2',
+        productName: '미니멀 오버핏 싱글 블레이저',
+        price: 158000,
+        quantity: 1,
+        imageUrl: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=600&q=80',
+        size: 'XL (105)',
+        color: '차콜 블랙'
+      },
+      {
+        productId: 'prod-3',
+        productName: '와이드 핀턱 테일러드 슬랙스',
+        price: 89000,
+        quantity: 1,
+        imageUrl: 'https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?auto=format&fit=crop&w=600&q=80',
+        size: 'L (32)',
+        color: '다크 그레이'
+      }
+    ],
+    totalAmount: 247000,
+    discountAmount: 0,
+    finalAmount: 247000,
+    paymentMethod: 'naver_pay',
+    status: 'delivered',
+    trackingNumber: '550192847162',
+    courierCompany: '한진택배',
+    createdAt: '2026-08-20 11:20',
+    updatedAt: '2026-08-21 15:40',
+  },
+  {
+    id: 'ord-1004',
+    orderNumber: 'SW20260820-004',
+    userId: 'user-choi',
+    userEmail: 'choi.eunji@gmail.com',
+    userName: '최은지',
+    userPhone: '010-9182-3847',
+    shippingAddress: '인천광역시 연수구 송도과학로 32 송도테크노파크IT센터',
+    items: [
+      {
+        productId: 'prod-6',
+        productName: '클래식 레더 미니 숄더백',
+        price: 135000,
+        quantity: 1,
+        imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80',
+        color: '카멜 브라운'
+      }
+    ],
+    totalAmount: 135000,
+    discountAmount: 5000,
+    finalAmount: 130000,
+    paymentMethod: 'credit_card',
+    status: 'preparing',
+    createdAt: '2026-08-20 16:45',
+    updatedAt: '2026-08-21 09:00',
+  }
+];
+
+export const INITIAL_USERS: UserProfile[] = [
+  {
+    uid: 'cyber-admin-924',
+    email: 'cyber924@gmail.com',
+    displayName: '최고관리자 (Cyber)',
+    role: 'admin',
+    grade: 'VIP',
+    points: 50000,
+    totalSpent: 3840000,
+    orderCount: 14,
+    createdAt: '2026-01-10',
+    status: 'active',
+  },
+  {
+    uid: 'user-kim',
+    email: 'kim.fashion@gmail.com',
+    displayName: '김민준',
+    role: 'user',
+    grade: 'VIP',
+    points: 12500,
+    totalSpent: 1280000,
+    orderCount: 5,
+    createdAt: '2026-03-15',
+    status: 'active',
+  },
+  {
+    uid: 'user-lee',
+    email: 'lee.soyeon@naver.com',
+    displayName: '이소연',
+    role: 'user',
+    grade: '골드',
+    points: 8400,
+    totalSpent: 720000,
+    orderCount: 3,
+    createdAt: '2026-05-02',
+    status: 'active',
+  },
+  {
+    uid: 'user-park',
+    email: 'park.style@daum.net',
+    displayName: '박지훈',
+    role: 'manager',
+    grade: 'VIP',
+    points: 25000,
+    totalSpent: 1950000,
+    orderCount: 8,
+    createdAt: '2026-02-20',
+    status: 'active',
+  },
+  {
+    uid: 'user-choi',
+    email: 'choi.eunji@gmail.com',
+    displayName: '최은지',
+    role: 'user',
+    grade: '실버',
+    points: 3000,
+    totalSpent: 350000,
+    orderCount: 2,
+    createdAt: '2026-06-11',
+    status: 'active',
+  },
+  {
+    uid: 'user-jung',
+    email: 'jung.style@outlook.com',
+    displayName: '정다은',
+    role: 'user',
+    grade: '일반',
+    points: 1000,
+    totalSpent: 98000,
+    orderCount: 1,
+    createdAt: '2026-07-28',
+    status: 'active',
+  }
+];
+
+export const INITIAL_COUPONS: Coupon[] = [
+  {
+    id: 'cpn-1',
+    code: 'STYLEAI2026',
+    title: 'StyleWise 오픈 기념 전 품목 15% 특별 할인',
+    discountType: 'percentage',
+    discountValue: 15,
+    minOrderAmount: 50000,
+    maxDiscount: 30000,
+    expiryDate: '2026-12-31',
+    isActive: true,
+    usedCount: 142,
+  },
+  {
+    id: 'cpn-2',
+    code: 'WELCOME10K',
+    title: '신규 회원 가입 첫 구매 10,000원 즉시 할인',
+    discountType: 'fixed',
+    discountValue: 10000,
+    minOrderAmount: 70000,
+    expiryDate: '2026-10-31',
+    isActive: true,
+    usedCount: 389,
+  },
+  {
+    id: 'cpn-3',
+    code: 'AUTUMN20',
+    title: '2026 가을 아우터 & 니트 20% 얼리버드 쿠폰',
+    discountType: 'percentage',
+    discountValue: 20,
+    minOrderAmount: 100000,
+    maxDiscount: 50000,
+    expiryDate: '2026-09-30',
+    isActive: true,
+    usedCount: 85,
+  }
+];
+
+export const INITIAL_BANNERS: PromotionBanner[] = [
+  {
+    id: 'bnr-1',
+    title: 'AI가 찾아주는, 나만의 완벽한 스타일',
+    subtitle: '최신 패션 트렌드부터 체형과 취향에 맞춘 퍼스널 코디까지 실시간 완성',
+    badge: 'StyleWise AI 2026 패션 컬렉션',
+    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80',
+    linkUrl: '#products',
+    isActive: true,
+    order: 1,
+  },
+  {
+    id: 'bnr-2',
+    title: '2026 어텀 어반 럭셔리 컬렉션',
+    subtitle: '캐시미어 코트와 테일러드 블레이저로 완성하는 깊이 있는 가을 무드',
+    badge: 'NEW ARRIVALS',
+    imageUrl: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=1600&q=80',
+    linkUrl: '#products',
+    isActive: true,
+    order: 2,
+  },
+  {
+    id: 'bnr-3',
+    title: '모던 에센셜 실크 & 니트웨어',
+    subtitle: '부드러운 촉감과 완벽한 드레이프, 매일 입고 싶은 프리미엄 데일리룩',
+    badge: 'SPECIAL PROMOTION',
+    imageUrl: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=1600&q=80',
+    linkUrl: '#products',
+    isActive: true,
+    order: 3,
+  }
+];
+
+export const INITIAL_REVIEWS: ProductReview[] = [
+  {
+    id: 'rev-1',
+    productId: 'prod-1',
+    productName: '프리미엄 캐시미어 울 코트',
+    productImageUrl: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=600&q=80',
+    userId: 'user-kim',
+    userName: '김민준',
+    userEmail: 'kim.fashion@gmail.com',
+    rating: 5,
+    content: '원단이 정말 부드럽고 가볍습니다. 어깨 라인이 자연스럽게 떨어져서 포멀한 출근룩이나 캐주얼한 데이트룩 어디에나 찰떡이네요. 색상도 화면보다 은은하고 고급스럽습니다!',
+    imageUrl: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=600&q=80',
+    sizeFeedback: '적당함',
+    colorFeedback: '화면과 동일',
+    likes: 18,
+    createdAt: '2026-08-20 16:45',
+    isBest: true,
+    status: 'published',
+    reply: {
+      id: 'rep-1',
+      author: 'StyleWise 공식 패션 MD',
+      content: '소중한 구매 후기 진심으로 감사드립니다 고객님! 프리미엄 100% 몽골리안 캐시미어 혼방으로 제작되어 따뜻함과 가벼움을 모두 잡았습니다. 올 가을/겨울 멋진 스타일링 응원합니다 :)',
+      createdAt: '2026-08-20 18:20'
+    }
+  },
+  {
+    id: 'rev-2',
+    productId: 'prod-5',
+    productName: '실크 블렌드 플리츠 원피스',
+    productImageUrl: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80',
+    userId: 'user-lee',
+    userName: '이소연',
+    userEmail: 'lee.soyeon@naver.com',
+    rating: 5,
+    content: '결혼식 하객룩으로 입으려고 구매했는데 정말 우아하다는 칭찬 많이 들었어요! 플리츠 주름이 탄탄해서 구김도 거의 안 가고 허리 라인도 날씬해보여요.',
+    sizeFeedback: '적당함',
+    colorFeedback: '화면과 동일',
+    likes: 12,
+    createdAt: '2026-08-21 10:15',
+    isBest: true,
+    status: 'published'
+  },
+  {
+    id: 'rev-3',
+    productId: 'prod-2',
+    productName: '미니멀 오버핏 싱글 블레이저',
+    productImageUrl: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=600&q=80',
+    userId: 'user-park',
+    userName: '박지훈',
+    userEmail: 'park.style@daum.net',
+    rating: 4,
+    content: '핏은 기대한 대로 아주 예쁜 오버핏인데 팔 기장이 살짝 긴 편이에요. 롤업해서 입으니 자연스럽고 멋스럽습니다.',
+    sizeFeedback: '큼',
+    colorFeedback: '화면과 동일',
+    likes: 5,
+    createdAt: '2026-08-19 14:22',
+    isBest: false,
+    status: 'published',
+    reply: {
+      id: 'rep-3',
+      author: 'StyleWise CS팀',
+      content: '솔직하고 유용한 리뷰 감사드립니다! 본 상품은 트렌디한 오버사이즈 실루엣으로 디자인되어 한 치수 다운하시거나 소매를 자연스럽게 롤업하시면 더욱 멋지게 연출됩니다.',
+      createdAt: '2026-08-19 16:00'
+    }
+  },
+  {
+    id: 'rev-4',
+    productId: 'prod-4',
+    productName: '슬림핏 코튼 드레스 셔츠',
+    productImageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80',
+    userId: 'user-choi',
+    userName: '최은지',
+    userEmail: 'choi.eunji@gmail.com',
+    rating: 5,
+    content: '신축성이 생각보다 너무 좋아서 하루 종일 앉아서 일해도 편안해요. 비침도 거의 없어서 단독으로 입기 딱 좋습니다.',
+    sizeFeedback: '적당함',
+    colorFeedback: '화면과 동일',
+    likes: 7,
+    createdAt: '2026-08-18 19:30',
+    isBest: false,
+    status: 'published'
+  }
+];
+
+export const INITIAL_INQUIRIES: CustomerInquiry[] = [
+  {
+    id: 'inq-1',
+    type: 'size',
+    productId: 'prod-1',
+    productName: '프리미엄 캐시미어 울 코트',
+    userId: 'user-jung',
+    userName: '정다은',
+    userEmail: 'jung.style@outlook.com',
+    title: '키 163cm인데 S랑 M 중에 어떤 사이즈가 좋을까요?',
+    content: '평소 55반 사이즈 입고 키는 163cm입니다. 안에 도톰한 니트를 이너로 껴입고 싶은데 M사이즈가 너무 크지 않을지 고민되네요. 상세 실측 추천 부탁드립니다.',
+    isSecret: false,
+    status: 'answered',
+    answer: {
+      answeredBy: 'StyleWise 스타일 컨설턴트',
+      content: '안녕하세요 정다은 고객님! 문의주신 캐시미어 코트는 세미 오버핏 패턴으로 제작되었습니다. 도톰한 겨울 니트와 레이어드 착용을 원하신다면 M사이즈가 넉넉하고 편안한 실루엣을 완성해 드리며, 슬림하고 딱 맞는 핏을 원하시면 S사이즈를 추천해 드립니다.',
+      answeredAt: '2026-08-21 11:30'
+    },
+    createdAt: '2026-08-21 09:15',
+    updatedAt: '2026-08-21 11:30'
+  },
+  {
+    id: 'inq-2',
+    type: 'shipping',
+    productId: 'prod-5',
+    productName: '실크 블렌드 플리츠 원피스',
+    userId: 'user-lee',
+    userName: '이소연',
+    userEmail: 'lee.soyeon@naver.com',
+    title: '이번 주 금요일까지 꼭 받아야 하는데 당일 출고 가능한가요?',
+    content: '주말에 중요한 행사가 있어서 목요일이나 금요일까지는 꼭 수령해야 합니다. 오늘 오후 3시 전에 결제하면 오늘 바로 출고되나요?',
+    isSecret: true,
+    status: 'answered',
+    answer: {
+      answeredBy: 'StyleWise 물류센터',
+      content: '고객님 안녕하세요! 오후 2시 이전 결제 완료 건은 서울/수도권 당일 CJ대한통운으로 즉시 출고되며, 대부분 익일(내일) 안전하게 수령 가능하십니다. 빠르게 검수 후 발송 도와드리겠습니다.',
+      answeredAt: '2026-08-21 13:40'
+    },
+    createdAt: '2026-08-21 12:50',
+    updatedAt: '2026-08-21 13:40'
+  },
+  {
+    id: 'inq-3',
+    type: 'refund',
+    userId: 'user-choi',
+    userName: '최은지',
+    userEmail: 'choi.eunji@gmail.com',
+    title: '사이즈 단순 변심 교환 시 반품 택배비 문의',
+    content: '주문한 셔츠를 한 사이즈 큰 걸로 교환하고 싶은데, 왕복 택배비 결제는 어떻게 진행해야 하나요? 수거 접수도 바로 가능한가요?',
+    isSecret: false,
+    status: 'waiting',
+    createdAt: '2026-08-21 21:10',
+    updatedAt: '2026-08-21 21:10'
+  },
+  {
+    id: 'inq-4',
+    type: 'product',
+    productId: 'prod-3',
+    productName: '와이드 핀턱 테일러드 슬랙스',
+    userId: 'user-kim',
+    userName: '김민준',
+    userEmail: 'kim.fashion@gmail.com',
+    title: '네이비나 브라운 컬러 추가 입고 계획이 있나요?',
+    content: '차콜 그레이 색상 너무 잘 입고 있어서 다른 색상도 구매하고 싶습니다. 가을 시즌 신규 컬러 라인업 출시 일정이 궁금합니다.',
+    isSecret: false,
+    status: 'waiting',
+    createdAt: '2026-08-21 22:05',
+    updatedAt: '2026-08-21 22:05'
+  }
+];
+

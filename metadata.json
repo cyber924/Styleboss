@@ -1,0 +1,6 @@
+{
+  "name": "StyleWise AI 쇼핑몰",
+  "description": "Firebase 인증 및 Gemini AI 스타일리스트가 결합된 지능형 패션 쇼핑몰",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
