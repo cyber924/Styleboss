@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sparkles, Send, RefreshCw, Wand2, CheckCircle2, Flame, Shirt, Layers } from 'lucide-react';
 import type { Product } from '../types';
 
 interface AiStylistSectionProps {
   products: Product[];
   onAddToCart: (product: Product) => void;
+  selectedProductForStyling?: Product | null;
+  onClearSelectedProduct?: () => void;
 }
 
-export function AiStylistSection({ products, onAddToCart }: AiStylistSectionProps) {
+export function AiStylistSection({ 
+  products, 
+  onAddToCart,
+  selectedProductForStyling,
+  onClearSelectedProduct,
+}: AiStylistSectionProps) {
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
   const [styleResult, setStyleResult] = useState<{
@@ -105,6 +112,16 @@ export function AiStylistSection({ products, onAddToCart }: AiStylistSectionProp
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (selectedProductForStyling) {
+      const promptText = `[${selectedProductForStyling.name}] (${selectedProductForStyling.description}) 상품을 돋보이게 하는 풀코디 세트(상의, 하의, 아우터, 매치 아이템 등) 구성과 센스 있는 스타일링 조언을 포함한 맞춤 코디 팁을 제안해주세요.`;
+      if (onClearSelectedProduct) {
+        onClearSelectedProduct();
+      }
+      handleGenerateStyle(promptText);
+    }
+  }, [selectedProductForStyling]);
 
   return (
     <section id="ai-stylist-interactive-section" className="my-12 rounded-3xl border border-neutral-200/90 bg-gradient-to-b from-amber-50/40 via-white to-white p-6 sm:p-10 shadow-sm">

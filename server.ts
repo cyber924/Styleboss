@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import { aiRouter } from './server/routes/ai.js';
 
 const app = express();
@@ -39,19 +40,27 @@ app.use('/api', aiRouter);
 // Standalone execution for Cloud Run and Local Dev (Skipped when running as Vercel Serverless Function)
 if (process.env.VERCEL !== '1') {
   async function startServer() {
-    if (process.env.NODE_ENV !== 'production') {
+    const isProd = process.env.NODE_ENV === 'production';
+    const distPath = path.join(process.cwd(), 'dist');
+    const indexPath = path.join(distPath, 'index.html');
+
+    // If running in production and dist/index.html exists, serve compiled static assets.
+    // In dev mode OR if dist is not yet built, mount Vite middlewares live so the app ALWAYS loads seamlessly!
+    if (isProd && fs.existsSync(indexPath)) {
+      app.use(express.static(distPath));
+      app.get('*', (req, res, next) => {
+        if (req.path.startsWith('/api')) {
+          return next();
+        }
+        res.sendFile(indexPath);
+      });
+    } else {
       const { createServer: createViteServer } = await import('vite');
       const vite = await createViteServer({
         server: { middlewareMode: true },
         appType: 'spa',
       });
       app.use(vite.middlewares);
-    } else {
-      const distPath = path.join(process.cwd(), 'dist');
-      app.use(express.static(distPath));
-      app.get('*', (req, res) => {
-        res.sendFile(path.join(distPath, 'index.html'));
-      });
     }
 
     app.listen(PORT, '0.0.0.0', () => {

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { generateContentWithGemini, generateFashionStyling } from '../services/gemini.js';
+import { generateContentWithGemini, generateFashionStyling, generateFashionCampaign } from '../services/gemini.js';
 
 export const aiRouter = Router();
 
@@ -78,3 +78,51 @@ aiRouter.post('/ai/styling', async (req, res) => {
     });
   }
 });
+
+/**
+ * POST /api/ai/planner
+ * Advanced AI MD Fashion Planning Campaign Generator.
+ * Request: { concept, weather, tpo, targetGender, targetAge, budget, customPrompt }
+ * Response: { success: true, campaign }
+ */
+aiRouter.post('/ai/planner', async (req, res) => {
+  try {
+    const { concept, weather, tpo, targetGender, targetAge, budget, customPrompt } = req.body || {};
+
+    if (!concept || !weather || !tpo) {
+      return res.status(400).json({
+        success: false,
+        error: '기획을 위해 필수 파라미터(concept, weather, tpo)가 필요합니다.',
+      });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({
+        success: false,
+        error: '서버에 GEMINI_API_KEY 환경변수가 설정되지 않았습니다.',
+      });
+    }
+
+    const campaign = await generateFashionCampaign({
+      concept,
+      weather,
+      tpo,
+      targetGender: targetGender || 'Unisex',
+      targetAge: targetAge || '20s-30s',
+      budget: budget || 'Moderate',
+      customPrompt
+    });
+
+    return res.json({
+      success: true,
+      campaign,
+    });
+  } catch (error: any) {
+    console.error('[AI Error in /api/ai/planner]:', error);
+    return res.status(500).json({
+      success: false,
+      error: error.message || 'AI 패션 기획전 생성 중 서버 오류가 발생했습니다.',
+    });
+  }
+});
+

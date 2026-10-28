@@ -140,6 +140,7 @@ export default function App() {
   const [firebaseConfigModalOpen, setFirebaseConfigModalOpen] = useState<boolean>(false);
   const [cartDrawerOpen, setCartDrawerOpen] = useState<boolean>(false);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [selectedProductForStyling, setSelectedProductForStyling] = useState<Product | null>(null);
   const [myOrdersModalOpen, setMyOrdersModalOpen] = useState<boolean>(false);
 
   // Cart State
@@ -456,6 +457,7 @@ export default function App() {
   };
 
   const handleGetAiStyling = (product: Product) => {
+    setSelectedProductForStyling(product);
     handleScrollToStylist();
     showToast('AI 스타일리스트 추천', `[${product.name}]의 추천 코디 팁을 확인하세요.`);
   };
@@ -616,6 +618,8 @@ export default function App() {
           <AiStylistSection
             products={products}
             onAddToCart={handleAddToCart}
+            selectedProductForStyling={selectedProductForStyling}
+            onClearSelectedProduct={() => setSelectedProductForStyling(null)}
           />
         </div>
 

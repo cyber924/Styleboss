@@ -147,16 +147,14 @@ export function ProductCard({
           </div>
 
           {/* AI Styling Prompt Button */}
-          {product.aiStylingSuggestion && (
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); onGetAiStyling(product); }}
-              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-amber-700 hover:text-amber-800 bg-amber-50/80 hover:bg-amber-100/80 px-2.5 py-1 rounded-md transition-colors w-fit cursor-pointer"
-            >
-              <Sparkles className="w-3 h-3 text-amber-500" />
-              <span>AI 코디 제안 보기</span>
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); onGetAiStyling(product); }}
+            className="inline-flex items-center justify-center gap-1.5 text-[11px] font-bold text-amber-800 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200/60 px-3 py-1.5 rounded-xl transition-all w-full cursor-pointer shadow-2xs hover:shadow-xs"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+            <span>Get AI Styling Tip</span>
+          </button>
         </div>
       </div>
     </div>
