@@ -1,0 +1,28 @@
+{
+  "protocol": "pound-observe-v1",
+  "revision": "3",
+  "name": "스타일보스",
+  "projectId": "appai-9c3b7",
+  "databaseId": "(default)",
+  "loginPath": "/",
+  "firebaseConfig": {
+    "apiKey": "AIzaSyB2YzsqY1TE-RHlVW8jBy9XWxsB-K_fxFE",
+    "authDomain": "appai-9c3b7.firebaseapp.com",
+    "projectId": "appai-9c3b7",
+    "storageBucket": "appai-9c3b7.firebasestorage.app",
+    "messagingSenderId": "205875590879",
+    "appId": "1:205875590879:web:6d4c691105a4a91a649b6a"
+  },
+  "collections": [
+    {
+      "path": "products",
+      "type": "products",
+      "ownerFields": [
+        "userId",
+        "ownerId"
+      ]
+    }
+  ],
+  "schemaCommit": "2bcb050a3d4c164f258d2084a62ac059e98b1c68",
+  "schemaCoverage": "현재 소스에서 확인한 DB 경로만 조회합니다. 브라우저 임시 데이터는 DB 건수에 포함하지 않습니다."
+}
